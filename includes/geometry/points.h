@@ -315,28 +315,26 @@ template <typename T> class Point3 {
 
         /**
          * @brief Access operator.
-         * @param i The index (0 for x, 1 for y, 2 for z).
-         * @return The component at the given index.
+         * @param i The index of the component to access.
+         * @return The i-th component of the point.
          */
-        template operator[] (int i) {
-            Assert(i >= 0 && i <= 2);
+        T operator[] (int i) const {
             if (i == 0) return x;
             else if (i == 1) return y;
             else if (i == 2) return z;
-            else throw "Index out of bounds";
+            else throw out_of_range("Index out of range");
         }
 
         /**
          * @brief Non-const access operator.
-         * @param i The index (0 for x, 1 for y, 2 for z).
-         * @return The component at the given index.
+         * @param i The index of the component to access.
+         * @return A reference to the i-th component of the point.
          */
-        template &operator[] (int i) {
-            Assert(i >= 0 && i <= 2);
+        T &operator[] (int i) {
             if (i == 0) return x;
             else if (i == 1) return y;
             else if (i == 2) return z;
-            else throw "Index out of bounds";
+            else throw out_of_range("Index out of range");
         }
 
         /**
