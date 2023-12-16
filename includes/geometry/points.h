@@ -80,7 +80,8 @@ template <typename T> class Point2 {
          */
         template <typename U> explicit operator Point3<U>() const {
             return Vector3<U>(x, y, 0);
-
+        }
+        
         /**
          * @brief Addition operator with a vector.
          * @param v The vector to add.
