@@ -168,7 +168,18 @@ template <typename T> class Vector2 {
         Vector2<T> normalize() const {
             return *this / length();
         }
-}
+
+        /**
+         * @brief Outputs the ray to an ostream.
+         * @param os The ostream.
+         * @param r The ray.
+         * @return The ostream.
+         */
+        friend ostream& operator<<(ostream& os, const Vector2<T>& v) {
+            os << "Vector2(" << v.x << ", " << v.y << ")";
+            return os;
+        }
+};
 
 /**
  * @brief Multiplies a scalar value with a Vector2 object.
@@ -473,6 +484,17 @@ template <typename T> class Vector3 {
          */
         Vector3<T> normalize() const {
             return *this / length();
+        }
+
+        /**
+         * @brief Outputs the ray to an ostream.
+         * @param os The ostream.
+         * @param r The ray.
+         * @return The ostream.
+         */
+        friend ostream& operator<<(ostream& os, const Vector3<T>& v) {
+            os << "Vector3(" << v.x << ", " << v.y << ", " << v.z << ")";
+            return os;
         }
 };
 
