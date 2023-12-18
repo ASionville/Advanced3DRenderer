@@ -78,9 +78,6 @@ Matrix4x4 invert(const Matrix4x4& m) {
     return b;
 }
 
-
-
-
 /**
  * Creates a translation Transform.
  *
