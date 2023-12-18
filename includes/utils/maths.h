@@ -24,6 +24,16 @@ template <typename T, typename U, typename V> inline T clamp(T val, U low, V hig
     return val;
 }
 
+/**
+ * Performs linear interpolation between two values.
+ * 
+ * @tparam T The type of the values to interpolate.
+ * @param t The interpolation factor, ranging from 0 to 1.
+ * @param v1 The starting value.
+ * @param v2 The ending value.
+ * @return The interpolated value between v1 and v2.
+ */
+template <typename T> inline T lerp(float t, T v1, T v2);
 
 /**
  * Converts degrees to radians.
