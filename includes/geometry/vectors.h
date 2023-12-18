@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <iostream>
+#include "normals.h"
 
 using namespace std;
 
@@ -343,6 +344,12 @@ template <typename T> class Vector3 {
         Vector3(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {Assert(!has_NaNs());}
 
         /**
+         * @brief Constructor from a Normal3.
+         * @param n The Normal3 to convert.
+         */
+        explicit Vector3(const Normal3<T>& n);
+
+        /**
          * @brief Access operator.
          * @param i The index of the component to access.
          * @return The i-th component of the vector.
@@ -497,6 +504,14 @@ template <typename T> class Vector3 {
             return os;
         }
 };
+
+/**
+ * @brief Constructor that initializes a Vector3 from a Normal3.
+ * @param n The Normal3 to convert.
+ */
+template <typename T> inline Vector3<T>::Vector3(const Normal3<T>& n) : x(n.x), y(n.y), z(n.z) {
+    Assert(!n.has_NaNs());
+}
 
 /**
  * @brief Multiplies a scalar value with a vector.

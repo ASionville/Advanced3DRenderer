@@ -190,14 +190,6 @@ template <typename T> class Normal3 {
 };
 
 /**
- * @brief Constructor that initializes a Vector3 from a Normal3.
- * @param n The Normal3 to convert.
- */
-template <typename T> inline Vector3<T>::Vector3(const Normal3<T>& n) : x(n.x), y(n.y), z(n.z) {
-    Assert(!n.has_NaNs());
-}
-
-/**
  * @brief Computes the dot product of a Normal3 and a Vector3.
  * @param n1 The Normal3.
  * @param v2 The Vector3.
