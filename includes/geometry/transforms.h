@@ -238,6 +238,53 @@ class Matrix4x4 {
             memcpy(m, result.m, 16 * sizeof(float));
             return *this;
         }
+
+        /**
+         * @brief Equality operator for matrices.
+         * @param mat The matrix to compare against.
+         * @return True if the matrices are equal, false otherwise.
+         */
+        bool operator==(const Matrix4x4& mat) const {
+            bool equal = true;
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; i < 4; i++) {
+                    if (m[i][j] != mat.m[i][j]) {
+                        equal = false;
+                        break;
+                    }
+                }
+            }
+            return equal;
+        }
+
+        /**
+         * @brief Inequality operator for matrices.
+         * @param mat The matrix to compare against.
+         * @return True if the matrices are not equal, false otherwise.
+         */
+        bool operator!=(const Matrix4x4& mat) const {
+            bool equal = true;
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; i < 4; i++) {
+                    if (m[i][j] != mat.m[i][j]) {
+                        equal = false;
+                        break;
+                    }
+                }
+            }
+            return !equal;
+        }
+
+        /**
+         * @brief Checks if the matrix is an identity matrix.
+         * @return True if the matrix is an identity matrix, false otherwise.
+         */
+        bool is_identity() const {
+            return m[0][0] == 1 && m[0][1] == 0 && m[0][2] == 0 && m[0][3] == 0 &&
+                   m[1][0] == 0 && m[1][1] == 1 && m[1][2] == 0 && m[1][3] == 0 &&
+                   m[2][0] == 0 && m[2][1] == 0 && m[2][2] == 1 && m[2][3] == 0 &&
+                   m[3][0] == 0 && m[3][1] == 0 && m[3][2] == 0 && m[3][3] == 1;
+        }
 };
 
 /**
@@ -328,6 +375,28 @@ class Transform {
 
         Transform& operator*(const Transform& t2) const {
             return Transform(matrix * t2.matrix, t2.inv_matrix * inv_matrix);
+        }
+
+        bool operator==(const Transform& t2) const {
+            return matrix == t2.matrix && inv_matrix == t2.inv_matrix;
+        }
+
+        /**
+         * @brief Overloaded inequality operator for comparing two Transform objects.
+         * @param t2 The Transform object to compare against.
+         * @return True if the Transform objects are not equal, false otherwise.
+         */
+        bool operator!=(const Transform& t2) const {
+            return matrix != t2.matrix || inv_matrix != t2.inv_matrix;
+        }
+
+        /**
+         * Checks if the transform is an identity transform.
+         * 
+         * @return true if the transform is an identity transform, false otherwise.
+         */
+        bool is_identity() const {
+            return matrix == Matrix4x4();
         }
 
         /**
