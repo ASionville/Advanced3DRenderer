@@ -25,7 +25,7 @@ template <typename T> class Point2 {
          * @param _x The x component.
          * @param _y The y component.
          */
-        Point2(T _x, T _y) : x(x), y(y) {Assert(!has_Nans);}
+        Point2(T _x, T _y) : x(x), y(y) {Assert(!has_Nans);};
 
         /**
          * @brief Access operator.
