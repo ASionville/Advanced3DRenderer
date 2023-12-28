@@ -1,6 +1,8 @@
 #ifndef POINTS
 #define POINTS
 
+#include <cassert>
+#include <cmath>
 #include <iostream>
 #include "vectors.h"
 
@@ -18,34 +20,22 @@ template <typename T> class Point2 {
         /**
          * @brief Default constructor. Initializes x and y to 0.
          */
-        Point2() : { x = y = 0; }
+        Point2() : x(0), y(0) {}
 
         /**
          * @brief Constructor with components.
          * @param _x The x component.
          * @param _y The y component.
          */
-        Point2(T _x, T _y) : x(x), y(y) {Assert(!has_Nans);};
+        Point2(T _x, T _y) : x(_x), y(_y) { assert(!has_Nans()); }
 
         /**
          * @brief Access operator.
          * @param i The index (0 for x, 1 for y).
          * @return The component at the given index.
          */
-        template operator[] (int i) {
-            Assert(i >= 0 && i <= 1);
-            if (i == 0) return x;
-            else if (i == 1) return y;
-            else throw "Index out of bounds";
-        }
-
-        /**
-         * @brief Non-const access operator.
-         * @param i The index (0 for x, 1 for y).
-         * @return The component at the given index.
-         */
-        template &operator[] (int i) {
-            Assert(i >= 0 && i <= 1);
+        operator[] (int i) {
+            assert(i >= 0 && i <= 1);
             if (i == 0) return x;
             else if (i == 1) return y;
             else throw "Index out of bounds";
@@ -64,7 +54,7 @@ template <typename T> class Point2 {
          * @param p The point to convert.
          */
         template <typename U> explicit Point2(const Point2<U> &p) :
-            x((T)p.x), y((T)p.y) { Assert(!has_Nans()); }
+            x((T)p.x), y((T)p.y) { assert(!has_Nans()); }
 
         /**
          * @brief Explicit conversion to a vector.
@@ -72,14 +62,6 @@ template <typename T> class Point2 {
          */
         template <typename U> explicit operator Vector2<U>() const {
             return Vector2<U>(x, y);
-        }
-
-        /**
-         * @brief Explicit conversion to a 3D point.
-         * @return The point with z = 0.
-         */
-        template <typename U> explicit operator Point3<U>() const {
-            return Vector3<U>(x, y, 0);
         }
         
         /**
@@ -172,7 +154,7 @@ template <typename T> class Point2 {
          * @return The result of the division.
          */
         Point2<T> operator/(T f) const {
-            Assert(f != 0);
+            assert(f != 0);
             float inv = 1.f / f;
             return Point2<T>(x * inv, y * inv);
         }
@@ -183,7 +165,7 @@ template <typename T> class Point2 {
          * @return This point after the division.
          */
         Point2<T> &operator/=(T f) {
-            Assert(f != 0);
+            assert(f != 0);
             float inv = 1.f / f;
             x *= inv; y *= inv;
             return *this;
@@ -303,7 +285,7 @@ template <typename T> class Point3 {
         /**
          * @brief Default constructor. Initializes x, y and z to 0.
          */
-        Point3() : { x = y = z = 0; }
+        Point3() : x(0), y(0), z(0) {}
 
         /**
          * @brief Constructor with components.
@@ -311,7 +293,7 @@ template <typename T> class Point3 {
          * @param _y The y component.
          * @param _z The z component.
          */
-        Point3(T _x, T _y, T _z) : x(x), y(y), z(z) {Assert(!has_Nans);}
+        Point3(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {assert(!has_Nans());}
 
         /**
          * @brief Access operator.
@@ -350,7 +332,7 @@ template <typename T> class Point3 {
          * @param p The point to convert.
          */
         template <typename U> explicit Point3(const Point3<U> &p) :
-            x((T)p.x), y((T)p.y), z((T)p.z) { Assert(!has_Nans()); }
+            x((T)p.x), y((T)p.y), z((T)p.z) { assert(!has_Nans()); }
 
         /**
          * @brief Explicit conversion to a vector.
@@ -458,7 +440,7 @@ template <typename T> class Point3 {
          * @return The result of the division.
          */
         Point3<T> operator/(T f) const {
-            Assert(f != 0);
+            assert(f != 0);
             float inv = 1.f / f;
             return Point3<T>(x * inv, y * inv, z * inv);
         }
@@ -469,7 +451,7 @@ template <typename T> class Point3 {
          * @return This point after the division.
          */
         Point3<T> &operator/=(T f) {
-            Assert(f != 0);
+            assert(f != 0);
             float inv = 1.f / f;
             x *= inv; y *= inv; z *= inv;
             return *this;

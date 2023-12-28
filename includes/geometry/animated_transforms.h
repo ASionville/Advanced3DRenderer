@@ -252,7 +252,9 @@ class Quaternion {
  * @param q2 The second quaternion.
  * @return The dot product of the two quaternions.
  */
-inline float dot(const Quaternion& q1, const Quaternion& q2);
+inline float dot(const Quaternion& q1, const Quaternion& q2) {
+    return dot(q1.v, q2.v) + q1.w * q2.w;
+}
 
 /**
  * @brief Normalizes a quaternion.

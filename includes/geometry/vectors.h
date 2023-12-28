@@ -1,9 +1,9 @@
 #ifndef VECTORS
 #define VECTORS
 
+#include <cassert>
 #include <cmath>
 #include <iostream>
-#include "normals.h"
 
 using namespace std;
 
@@ -19,14 +19,14 @@ template <typename T> class Vector2 {
         /**
          * @brief Default constructor. Initializes all components to zero.
          */
-        Vector2() {x = y = 0;}
+        Vector2() : x(0), y(0) {}
 
         /**
          * @brief Constructor with components.
          * @param _x The x component.
          * @param _y The y component.
          */
-        Vector2(T _x, T _y) : x(_x), y(_y) {Assert(!has_NaNs());}
+        Vector2(T _x, T _y) : x(_x), y(_y) {assert(!has_NaNs());}
 
         /**
          * @brief Access operator.
@@ -129,7 +129,7 @@ template <typename T> class Vector2 {
          * @return The result of the division.
          */
         Vector2<T> operator/ (T s) const {
-            Assert(s != 0);
+            assert(s != 0);
             float inv = (float)1/s;
             return Vector2<T>(x * inv, y * inv);
         }
@@ -140,7 +140,7 @@ template <typename T> class Vector2 {
          * @return A reference to this vector after the division.
          */
         Vector2<T> &operator/= (T s) {
-            Assert(s != 0);
+            assert(s != 0);
             float inv = (float)1/s;
             x *= inv; y *= inv;
             return *this;
@@ -171,9 +171,9 @@ template <typename T> class Vector2 {
         }
 
         /**
-         * @brief Outputs the ray to an ostream.
+         * @brief Outputs the vector to an ostream.
          * @param os The ostream.
-         * @param r The ray.
+         * @param v The vector.
          * @return The ostream.
          */
         friend ostream& operator<<(ostream& os, const Vector2<T>& v) {
@@ -333,7 +333,7 @@ template <typename T> class Vector3 {
         /**
          * @brief Default constructor. Initializes all components to zero.
          */
-        Vector3() {x = y = z = 0;}
+        Vector3() : x(0), y(0), z(0) {}
 
         /**
          * @brief Constructor with components.
@@ -341,13 +341,7 @@ template <typename T> class Vector3 {
          * @param _y The y component.
          * @param _z The z component.
          */
-        Vector3(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {Assert(!has_NaNs());}
-
-        /**
-         * @brief Constructor from a Normal3.
-         * @param n The Normal3 to convert.
-         */
-        explicit Vector3(const Normal3<T>& n);
+        Vector3(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {assert(!has_NaNs());}
 
         /**
          * @brief Access operator.
@@ -452,7 +446,7 @@ template <typename T> class Vector3 {
          * @return The result of the division.
          */
         Vector3<T> operator/ (T s) const {
-            Assert(s != 0);
+            assert(s != 0);
             float inv = (float)1/s;
             return Vector3<T>(x * inv, y * inv, z * inv);
         }
@@ -463,7 +457,7 @@ template <typename T> class Vector3 {
          * @return A reference to this vector after the division.
          */
         Vector3<T> &operator/= (T s) {
-            Assert(s != 0);
+            assert(s != 0);
             float inv = (float)1/s;
             x *= inv; y *= inv; z *= inv;
             return *this;
@@ -494,9 +488,9 @@ template <typename T> class Vector3 {
         }
 
         /**
-         * @brief Outputs the ray to an ostream.
+         * @brief Outputs the vector to an ostream.
          * @param os The ostream.
-         * @param r The ray.
+         * @param v The vector.
          * @return The ostream.
          */
         friend ostream& operator<<(ostream& os, const Vector3<T>& v) {
@@ -504,14 +498,6 @@ template <typename T> class Vector3 {
             return os;
         }
 };
-
-/**
- * @brief Constructor that initializes a Vector3 from a Normal3.
- * @param n The Normal3 to convert.
- */
-template <typename T> inline Vector3<T>::Vector3(const Normal3<T>& n) : x(n.x), y(n.y), z(n.z) {
-    Assert(!n.has_NaNs());
-}
 
 /**
  * @brief Multiplies a scalar value with a vector.

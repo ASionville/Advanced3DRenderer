@@ -1,6 +1,8 @@
 #ifndef NORMALS
 #define NORMALS
 
+#include <cassert>
+#include <cmath>
 #include <iostream>
 #include "vectors.h"
 
@@ -32,7 +34,7 @@ template <typename T> class Normal3 {
          * @param v The vector to convert.
          */
         template <typename U> explicit Normal3(const Vector3<U>& v) : x(v.x), y(v.y), z(v.z) {
-            Assert(!v.has_NaNs());
+            assert(!v.has_NaNs());
         }
 
         /**
@@ -49,7 +51,7 @@ template <typename T> class Normal3 {
          * @return The component at the given index.
          */
         T operator[](int i) const {
-            Assert(i >= 0 && i <= 2);
+            assert(i >= 0 && i <= 2);
             if (i == 0) return x;
             if (i == 1) return y;
             return z;
@@ -61,7 +63,7 @@ template <typename T> class Normal3 {
          * @return The component at the given index.
          */
         T& operator[](int i) {
-            Assert(i >= 0 && i <= 2);
+            assert(i >= 0 && i <= 2);
             if (i == 0) return x;
             if (i == 1) return y;
             return z;
@@ -187,6 +189,26 @@ template <typename T> class Normal3 {
         Normal3<T> normalize() const {
             return *this / length();
         }
+
+        /**
+         * @brief Checks if the normal is normalized.
+         * 
+         * @return True if the normal is normalized, false otherwise.
+         */
+        bool is_normalized() const {
+            return length_squared() == 1;
+        }
+
+        /**
+         * @brief Outputs the normal to an ostream.
+         * @param os The ostream.
+         * @param n The normal.
+         * @return The ostream.
+         */
+        friend ostream& operator<<(ostream& os, const Normal3<T>& n) {
+            os << "Normal3(" << n.x << ", " << n.y << ")";
+            return os;
+        }
 };
 
 /**
@@ -196,7 +218,7 @@ template <typename T> class Normal3 {
  * @return The dot product of n1 and v2.
  */
 template <typename T> inline float dot(const Normal3<T>& n1, const Vector3<T>& v2) {
-    Assert(!n1.has_NaNs() && !v2.has_NaNs());
+    assert(!n1.has_NaNs() && !v2.has_NaNs());
     return n1.x * v2.x + n1.y * v2.y + n1.z * v2.z;
 }
 
@@ -207,7 +229,7 @@ template <typename T> inline float dot(const Normal3<T>& n1, const Vector3<T>& v
  * @return The dot product of v1 and n2.
  */
 template <typename T> inline float dot(const Vector3<T>& v1, const Normal3<T>& n2) {
-    Assert(!v1.has_NaNs() && !n2.has_NaNs());
+    assert(!v1.has_NaNs() && !n2.has_NaNs());
     return v1.x * n2.x + v1.y * n2.y + v1.z * n2.z;
 }
 
@@ -218,7 +240,7 @@ template <typename T> inline float dot(const Vector3<T>& v1, const Normal3<T>& n
  * @return The dot product of n1 and n2.
  */
 template <typename T> inline float dot(const Normal3<T>& n1, const Normal3<T>& n2) {
-    Assert(!n1.has_NaNs() && !n2.has_NaNs());
+    assert(!n1.has_NaNs() && !n2.has_NaNs());
     return n1.x * n2.x + n1.y * n2.y + n1.z * n2.z;
 }
 

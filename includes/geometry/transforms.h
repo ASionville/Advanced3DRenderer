@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cassert>
+#include <cstring>
 #include "vectors.h"
 #include "points.h"
 #include "normals.h"
@@ -373,7 +374,12 @@ class Transform {
             return os;
         }
 
-        Transform& operator*(const Transform& t2) const {
+        /** 
+         * @brief Multiplication operator with a Transform.
+         * @param t2 The Transform to multiply with.
+         * @return This Transform after the multiplication.
+         */
+        Transform operator*(const Transform& t2) const {
             return Transform(matrix * t2.matrix, t2.inv_matrix * inv_matrix);
         }
 
@@ -442,10 +448,10 @@ class Transform {
          */
         template <typename T> inline Point3<T> transform_point(const Point3<T>& p) const {
             T x = p.x, y = p.y, z = p.z;
-            T xp = m.m[0][0] * x + m.m[0][1] * y + m.m[0][2] * z + m.m[0][3];
-            T yp = m.m[1][0] * x + m.m[1][1] * y + m.m[1][2] * z + m.m[1][3];
-            T zp = m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z + m.m[2][3];
-            T wp = m.m[3][0] * x + m.m[3][1] * y + m.m[3][2] * z + m.m[3][3];
+            T xp = matrix.m[0][0] * x + matrix.m[0][1] * y + matrix.m[0][2] * z + matrix.m[0][3];
+            T yp = matrix.m[1][0] * x + matrix.m[1][1] * y + matrix.m[1][2] * z + matrix.m[1][3];
+            T zp = matrix.m[2][0] * x + matrix.m[2][1] * y + matrix.m[2][2] * z + matrix.m[2][3];
+            T wp = matrix.m[3][0] * x + matrix.m[3][1] * y + matrix.m[3][2] * z + matrix.m[3][3];
             // "Normalize" the point's homogenous coordinates
             if (wp == 1) {
                 return Point3<T>(xp, yp, zp);
@@ -462,9 +468,9 @@ class Transform {
          */
         template <typename T> inline Vector3<T> transform_vector(const Vector3<T>& v) const {
             T x = v.x, y = v.y, z = v.z;
-            return Vector3<T>(m.m[0][0] * x + m.m[0][1] * y + m.m[0][2] * z,
-                              m.m[1][0] * x + m.m[1][1] * y + m.m[1][2] * z,
-                              m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z);
+            return Vector3<T>(matrix.m[0][0] * x + matrix.m[0][1] * y + matrix.m[0][2] * z,
+                              matrix.m[1][0] * x + matrix.m[1][1] * y + matrix.m[1][2] * z,
+                              matrix.m[2][0] * x + matrix.m[2][1] * y + matrix.m[2][2] * z);
         }
 
         /**
@@ -475,9 +481,9 @@ class Transform {
          */
         template <typename T> inline Normal3<T> transform_normal(const Normal3<T>& n) const {
             T x = n.x, y = n.y, z = n.z;
-            return Normal3<T>(inv_m.m[0][0] * x + inv_m.m[1][0] * y + inv_m.m[2][0] * z,
-                              inv_m.m[0][1] * x + inv_m.m[1][1] * y + inv_m.m[2][1] * z,
-                              inv_m.m[0][2] * x + inv_m.m[1][2] * y + inv_m.m[2][2] * z);
+            return Normal3<T>(inv_matrix.m[0][0] * x + inv_matrix.m[1][0] * y + inv_matrix.m[2][0] * z,
+                              inv_matrix.m[0][1] * x + inv_matrix.m[1][1] * y + inv_matrix.m[2][1] * z,
+                              inv_matrix.m[0][2] * x + inv_matrix.m[1][2] * y + inv_matrix.m[2][2] * z);
         }
 
         /**

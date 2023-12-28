@@ -1,0 +1,7 @@
+#include "geometry/animated_transforms.h"
+#include "geometry/bboxes.h"
+#include "geometry/normals.h"
+#include "geometry/points.h"
+#include "geometry/rays.h"
+#include "geometry/transforms.h"
+#include "geometry/vectors.h"

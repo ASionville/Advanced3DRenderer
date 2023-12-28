@@ -2,6 +2,7 @@
 #define BBOXES
 
 #include <iostream>
+#include <limits>
 #include "points.h"
 #include "vectors.h"
 
@@ -219,24 +220,6 @@ template <typename T> class BBox2Iterator {
             BBox2Iterator temp = *this;
             operator++();
             return temp;
-        }
-
-        /**
-         * @brief Returns the current x coordinate.
-         * 
-         * @return The current x coordinate.
-         */
-        T x() const {
-            return x;
-        }
-
-        /**
-         * @brief Returns the current y coordinate.
-         * 
-         * @return The current y coordinate.
-         */
-        T y() const {
-            return y;
         }
 
         /**
@@ -632,33 +615,6 @@ template <typename T> class BBox3Iterator {
             BBox3Iterator temp = *this;
             operator++();
             return temp;
-        }
-
-        /**
-         * @brief Returns the current x coordinate.
-         * 
-         * @return The current x coordinate.
-         */
-        T x() const {
-            return x;
-        }
-
-        /**
-         * @brief Returns the current y coordinate.
-         * 
-         * @return The current y coordinate.
-         */
-        T y() const {
-            return y;
-        }
-
-        /**
-         * @brief Returns the current z coordinate.
-         * 
-         * @return The current z coordinate.
-         */
-        T z() const {
-            return z;
         }
 
         /**

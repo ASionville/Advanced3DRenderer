@@ -33,7 +33,9 @@ template <typename T, typename U, typename V> inline T clamp(T val, U low, V hig
  * @param v2 The ending value.
  * @return The interpolated value between v1 and v2.
  */
-template <typename T> inline T lerp(float t, T v1, T v2);
+template <typename T> inline T lerp(float t, T v1, T v2) {
+    return v1 * (1 - t) + v2 * t;
+}
 
 /**
  * Converts degrees to radians.
